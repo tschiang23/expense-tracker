@@ -8,6 +8,7 @@ const express = require('express')
 const app = express()
 const routes = require('./routes')
 const { engine } = require('express-handlebars')
+const session = require('express-session')
 
 const PORT = process.env.PORT
 
@@ -19,6 +20,14 @@ db.once('open', () => {
 
   app.use(express.static('public'))
   app.use(express.urlencoded({ extended: true }))
+  app.use(
+    session({
+      secret: process.env.SECRET,
+      resave: false,
+      saveUninitialized: true,
+      cookie: { secure: true },
+    })
+  )
 
   app.use(routes)
 
