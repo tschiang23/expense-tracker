@@ -2,6 +2,7 @@
   <div class='card mt-5' style='width: 23rem;'>
     <div class='card-body'>
       <h1>登入</h1>
+      {{> message}}
       <form action='/users/login' method='post'>
 
         <div class='mb-3'>
@@ -27,7 +28,7 @@
           />
         </div>
         <div class='d-grid gap-2 mb-2'>
-          <button type='submit' class='btn btn-dark'>送出</button>
+          <button type='submit' class='btn btn-dark'>登入</button>
         </div>
         <a class='btn btn-outline-secondary' href='/users/register'>註冊帳號</a>
       </form>

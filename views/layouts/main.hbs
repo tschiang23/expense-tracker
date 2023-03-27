@@ -16,11 +16,13 @@
       <nav class='navbar bg-light'>
         <div class='container-fluid'>
           <a class='navbar-brand' href='#'>我的記賬本</a>
+          {{#if isAuthenticated}}
           <div><a
               class='btn btn-outline-secondary'
               href='/users/logout'
             >登出</a></div>
         </div>
+        {{/if}}
       </nav>
     </header>
 

@@ -11,13 +11,13 @@ module.exports = (app) => {
   // 設定本地登入策略
   passport.use(
     new LocalStrategy(
-      { usernameField: 'email' },
-      async (email, password, done) => {
+      { usernameField: 'email', passReqToCallback: true },
+      async (req, email, password, done) => {
         try {
           const foundUser = await User.findOne({ email })
           if (!foundUser) {
             return done(null, false, {
-              message: 'Email or password incorrect.',
+              message: '帳號密碼不正確',
             })
           }
 
@@ -27,7 +27,7 @@ module.exports = (app) => {
           )
           if (!checkPassword) {
             return done(null, false, {
-              message: 'Email or password incorrect.',
+              message: '帳號密碼不正確',
             })
           }
 

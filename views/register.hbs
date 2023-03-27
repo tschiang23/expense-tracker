@@ -2,6 +2,7 @@
   <div class='card mt-5' style='width: 23rem;'>
     <div class='card-body'>
       <h1>註冊帳號</h1>
+       {{> message}}
       <form action='/users/register' method='post'>
         <div class='mb-3'>
           <label for='name' class='form-label'>姓名</label>
@@ -11,6 +12,7 @@
             class='form-control'
             id='name'
             aria-describedby=''
+            value="{{name}}"
             required
           />
 
@@ -23,6 +25,7 @@
             class='form-control'
             id='email'
             aria-describedby='emailHelp'
+            value="{{email}}"
             required
           />
 
@@ -34,6 +37,7 @@
             type='password'
             class='form-control'
             id='password'
+            value="{{password}}"
             required
           />
         </div>
@@ -44,11 +48,12 @@
             type='password'
             class='form-control'
             id='confirmPassword'
+            value="{{confirmPassword}}"
             required
           />
         </div>
         <div class='d-grid gap-2 mb-2'>
-          <button type='submit' class='btn btn-dark'>送出</button>
+          <button type='submit' class='btn btn-dark'>註冊</button>
         </div>
         <a class='btn btn-outline-secondary' href='/users/login'>登入</a>
       </form>

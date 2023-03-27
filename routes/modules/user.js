@@ -13,6 +13,7 @@ router.post(
   passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/users/login',
+    failureFlash: true,
   })
 )
 
@@ -22,21 +23,30 @@ router.get('/register', (req, res) => {
 })
 
 router.post('/register', async (req, res) => {
-  let { name, email, password, confirmPassword } = req.body
-
   try {
+    console.log(req.body)
+    let { name, email, password, confirmPassword } = req.body
     const hash = await bcrypt.hash(password, 10)
 
     const foundUser = await User.findOne({ email })
 
+    const errors = []
     if (foundUser) {
-      console.log('Email already exits.')
-      return res.render('register')
+      errors.push({ message: '帳號已經被註冊' })
     }
 
     if (password !== confirmPassword) {
-      console.log('Password incorrect.')
-      return res.render('register')
+      errors.push({ message: '密碼與確認密碼不相符' })
+    }
+
+    if (errors.length) {
+      return res.render('register', {
+        errors,
+        name,
+        email,
+        password,
+        confirmPassword,
+      })
     }
 
     await User.create({
@@ -44,7 +54,8 @@ router.post('/register', async (req, res) => {
       email,
       password: hash,
     })
-    res.redirect('/user/register')
+    req.flash('success_msg', '帳號註冊成功')
+    res.redirect('/users/register')
   } catch (err) {
     console.log(err)
   }
@@ -53,7 +64,8 @@ router.post('/register', async (req, res) => {
 // logout
 router.get('/logout', (req, res) => {
   req.logOut(() => {
-    res.redirect('/users/login')
+    req.flash('success_msg', '你已經成功登出。')
+    return res.redirect('/users/login')
   })
 })
 
