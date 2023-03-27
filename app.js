@@ -9,6 +9,7 @@ const app = express()
 const routes = require('./routes')
 const { engine } = require('express-handlebars')
 const session = require('express-session')
+const usePassport = require('./config/passport')
 
 const PORT = process.env.PORT
 
@@ -28,6 +29,8 @@ db.once('open', () => {
       cookie: { secure: true },
     })
   )
+
+  usePassport(app)
 
   app.use(routes)
 
