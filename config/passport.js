@@ -11,24 +11,25 @@ module.exports = (app) => {
   // 設定本地登入策略
   passport.use(
     new LocalStrategy(
-      { usernameField: 'email', passReqToCallback: true },
-      async (req, email, password, done) => {
+      { usernameField: 'email' },
+      async (email, password, done) => {
         try {
           const foundUser = await User.findOne({ email })
-          if (!foundUser)
+          if (!foundUser) {
             return done(null, false, {
               message: 'Email or password incorrect.',
             })
+          }
 
           const checkPassword = await bcrypt.compare(
             password,
             foundUser.password
           )
-
-          if (!checkPassword)
+          if (!checkPassword) {
             return done(null, false, {
               message: 'Email or password incorrect.',
             })
+          }
 
           return done(null, foundUser)
         } catch (err) {
