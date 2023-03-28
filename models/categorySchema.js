@@ -4,6 +4,9 @@ const categorySchmea = new mongooge.Schema({
     type: String,
     required: true,
   },
+  icon: {
+    type: String,
+  },
 })
 
 module.exports = mongooge.model('Category', categorySchmea)
