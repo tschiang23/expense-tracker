@@ -1,0 +1,80 @@
+<div class='container'>
+  <div class='container d-flex flex-column align-items-center mt-5'>
+    <h2>請輸入你的支出</h2>
+    <form action='/records' method='post'>
+      <div class='row g-3 align-items-center mb-3'>
+        <div class='col-auto'>
+          <label for='name' class='col-form-label'>名稱</label>
+        </div>
+        <div class='col-auto'>
+          <input
+            name='name'
+            type='text'
+            id='name'
+            class='form-control'
+            aria-describedby=''
+            required
+          />
+        </div>
+      </div>
+
+      <div class='row g-3 align-items-center mb-3'>
+        <div class='col-auto'>
+          <label for='date' class='col-form-label'>日期</label>
+        </div>
+        <div class='col-auto'>
+          <input
+            name='date'
+            type='date'
+            id='date'
+            class='form-control'
+            aria-describedby=''
+            required
+          />
+        </div>
+      </div>
+
+      <div class='row g-3 align-items-center mb-3'>
+        <div class='col-auto'>
+          <label for='category' class='col-form-label'>類別</label>
+        </div>
+        <div class='col-auto'>
+          <select
+            name='category'
+            id='category'
+            class='form-select'
+            aria-label='Default select example'
+          >
+            <option selected>select</option>
+            <option value='家居物業'>家居物業</option>
+            <option value='交通出行'>交通出行</option>
+            <option value='休閒娛樂'>休閒娛樂</option>
+            <option value='餐飲食品'>餐飲食品</option>
+            <option value='休閒娛樂'>其他</option>
+          </select>
+        </div>
+      </div>
+
+      <div class='row g-3 align-items-center mb-3'>
+        <div class='col-auto'>
+          <label for='amount' class='col-form-label'>金額</label>
+        </div>
+        <div class='col-auto'>
+          <input
+            name='amount'
+            type='text'
+            id='amount'
+            class='form-control'
+            aria-describedby=''
+            required
+          />
+        </div>
+      </div>
+
+      <button type='submit' class='btn btn-outline-secondary'>新增支出</button>
+
+    </form>
+
+  </div>
+
+</div>
