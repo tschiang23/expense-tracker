@@ -1,1 +1,15 @@
-<h1>Homepage</h1>
+<div class='container d-flex flex-column align-items-center mt-5'>
+  <h1>支出紀錄</h1>
+  <h3>總金額 </h3>
+  <h2>{{totalAmount}}</h2>
+  <ul>
+    {{#each records}}
+      <li>
+        {{this.name}}
+        {{this.date}}
+        {{this.amount}}
+      </li>
+    {{/each}}
+  </ul>
+
+</div>
