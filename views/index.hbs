@@ -2,6 +2,7 @@
   <h1>支出紀錄</h1>
   <h3>總金額 </h3>
   <h2>{{totalAmount}}</h2>
+  {{> message}}
   <ul>
     {{#each records}}
       <li>
@@ -10,6 +11,8 @@
         {{this.date}}
         {{this.amount}}
         <a class='btn btn-secondary' href='/records/{{this._id}}/edit'>編輯</a>
+        <form action="/records/{{this._id}}?_method=DELETE" method="post" style="display: inline;"><button class="btn btn-danger" type="submit">刪除</button></form>
+
       </li>
 
     {{/each}}

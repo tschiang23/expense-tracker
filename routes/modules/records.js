@@ -78,4 +78,17 @@ router.put('/:id', async (req, res) => {
   }
 })
 
+// 刪除一筆資料
+router.delete('/:id', async (req, res) => {
+  try {
+    const _id = req.params.id
+    const record = await Record.findById(_id)
+    await record.remove()
+    req.flash('success_msg', '成功刪除資料')
+    res.redirect('/')
+  } catch (err) {
+    console.log(err)
+  }
+})
+
 module.exports = router
