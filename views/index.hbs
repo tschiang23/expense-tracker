@@ -1,5 +1,24 @@
 <div class='container d-flex flex-column align-items-center mt-5'>
   <h1>支出紀錄</h1>
+  <div>
+    <form action="/filter">
+<select
+            name='category'
+            class='form-select'
+            aria-label='Default select example'
+            onchange="this.form.submit()"
+          >
+            <option value = '' selected >類別</option>
+            <option value='家居物業'{{#ifeq category '家居物業'}}{{/ifeq}}>家居物業</option>
+            <option value='交通出行'{{#ifeq category '交通出行'}}{{/ifeq}}>交通出行</option>
+            <option value='休閒娛樂'{{#ifeq category '休閒娛樂'}}{{/ifeq}}>休閒娛樂</option>
+            <option value='餐飲食品'{{#ifeq category '餐飲食品'}}{{/ifeq}}>餐飲食品</option>
+            <option value='其他'{{#ifeq category '其他'}}{{/ifeq}}>其他</option>
+          </select>
+
+  </form>
+  </div>
+  
   <h3>總金額 </h3>
   <h2>{{totalAmount}}</h2>
   {{> message}}
