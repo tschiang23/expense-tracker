@@ -5,6 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const db = require('./config/mongoose')
 const express = require('express')
+const methodOverride = require('method-override')
 const app = express()
 const routes = require('./routes')
 const { engine } = require('express-handlebars')
@@ -27,6 +28,7 @@ db.once('open', () => {
   )
   app.set('view engine', 'hbs')
 
+  app.use(methodOverride('_method'))
   app.use(express.static('public'))
   app.use(express.urlencoded({ extended: true }))
   app.use(

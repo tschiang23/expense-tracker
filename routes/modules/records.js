@@ -47,4 +47,35 @@ router.get('/:id/edit', async (req, res) => {
     console.log(err)
   }
 })
+
+// 編輯一筆資料
+router.put('/:id', async (req, res) => {
+  try {
+    const id = req.params.id
+    let { name, date, category, amount } = req.body
+    name = name.trim()
+    amount = amount.trim()
+
+    if (!name.length || !amount.length) {
+      req.flash('warning_msg', '欄位不能為空白')
+      return res.redirect(`/records/${id}/edit`)
+    }
+    amount = Number(amount)
+    // findByIdAndUpdate
+    const foundCategory = await Category.findOne({ name: category })
+
+    await Record.findByIdAndUpdate(id, {
+      name,
+      date,
+      category,
+      amount,
+      categoryId: foundCategory._id,
+    })
+
+    res.redirect('/')
+  } catch (err) {
+    console.log(err)
+  }
+})
+
 module.exports = router
