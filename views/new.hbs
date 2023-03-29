@@ -1,6 +1,7 @@
 <div class='container'>
   <div class='container d-flex flex-column align-items-center mt-5'>
     <h2>請輸入你的支出</h2>
+    {{> message}}
     <form action='/records' method='post'>
       <div class='row g-3 align-items-center mb-3'>
         <div class='col-auto'>
@@ -11,6 +12,7 @@
             name='name'
             type='text'
             id='name'
+            value='{{name}}'
             class='form-control'
             aria-describedby=''
             required
@@ -27,6 +29,7 @@
             name='date'
             type='date'
             id='date'
+            value='{{date}}'
             class='form-control'
             aria-describedby=''
             required
@@ -43,6 +46,7 @@
             name='category'
             id='category'
             class='form-select'
+            value='{{category}}'
             aria-label='Default select example'
           >
             <option selected>select</option>
@@ -64,6 +68,7 @@
             name='amount'
             type='text'
             id='amount'
+            value='{{amount}}'
             class='form-control'
             aria-describedby=''
             required
