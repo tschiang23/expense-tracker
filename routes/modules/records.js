@@ -37,4 +37,14 @@ router.post('/', async (req, res) => {
   }
 })
 
+// 瀏覽一筆資料
+router.get('/:id/edit', async (req, res) => {
+  try {
+    let foundRecord = await Record.findById({ _id: req.params.id }).lean()
+    foundRecord.date = foundRecord.date.toISOString().slice(0, 10)
+    res.render('edit', { foundRecord })
+  } catch (err) {
+    console.log(err)
+  }
+})
 module.exports = router

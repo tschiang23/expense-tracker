@@ -17,7 +17,14 @@ const PORT = process.env.PORT
 db.once('open', () => {
   console.log('mongodb connected')
 
-  app.engine('hbs', engine({ defaultLayout: 'main', extname: 'hbs' }))
+  app.engine(
+    'hbs',
+    engine({
+      defaultLayout: 'main',
+      extname: 'hbs',
+      helpers: require('./config/handlebars-helpers'),
+    })
+  )
   app.set('view engine', 'hbs')
 
   app.use(express.static('public'))
