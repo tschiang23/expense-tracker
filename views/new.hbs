@@ -1,83 +1,63 @@
 <div class='container'>
-  <div class='container d-flex flex-column align-items-center mt-5'>
-    <h2>請輸入你的支出</h2>
-    {{> message}}
-    <form action='/records' method='post'>
-      <div class='row g-3 align-items-center mb-3'>
-        <div class='col-auto'>
-          <label for='name' class='col-form-label'>名稱</label>
-        </div>
-        <div class='col-auto'>
-          <input
-            name='name'
-            type='text'
-            id='name'
-            value='{{name}}'
-            class='form-control'
-            aria-describedby=''
-            required
-          />
-        </div>
+  <div class='row mt-5'>
+    <div class="col-auto mx-auto">
+      <div class="mb-3"><span class="me-3">*必填</span>
+        <h4 class="d-inline">請輸入你的支出</h4>
       </div>
 
-      <div class='row g-3 align-items-center mb-3'>
-        <div class='col-auto'>
-          <label for='date' class='col-form-label'>日期</label>
+      {{> message}}
+      <form class="text-center" action='/records' method='post'>
+        <div class='row g-3 mb-3'>
+          <div class='col-auto'>
+            <label for='name' class='col-form-label'>名稱*</label>
+          </div>
+          <div class='col-9'>
+            <input name='name' type='text' id='name' value='{{name}}' class='form-control' aria-describedby=''
+              required />
+          </div>
         </div>
-        <div class='col-auto'>
-          <input
-            name='date'
-            type='date'
-            id='date'
-            value='{{date}}'
-            class='form-control'
-            aria-describedby=''
-            required
-          />
-        </div>
-      </div>
 
-      <div class='row g-3 align-items-center mb-3'>
-        <div class='col-auto'>
-          <label for='category' class='col-form-label'>類別</label>
+        <div class='row g-3 mb-3'>
+          <div class='col-auto'>
+            <label for='date' class='col-form-label'>日期*</label>
+          </div>
+          <div class='col-9'>
+            <input name='date' type='date' id='date' value='{{date}}' class='form-control' aria-describedby=''
+              required />
+          </div>
         </div>
-        <div class='col-auto'>
-          <select
-            name='category'
-            id='category'
-            class='form-select'
-            aria-label='Default select example'
-          >
-            <option selected>select</option>
-            <option value='家居物業'{{#ifeq category '家居物業'}}{{/ifeq}}>家居物業</option>
-            <option value='交通出行' {{#ifeq category '交通出行'}}{{/ifeq}}>交通出行</option>
-            <option value='休閒娛樂' {{#ifeq category '休閒娛樂'}}{{/ifeq}}>休閒娛樂</option>
-            <option value='餐飲食品' {{#ifeq category '餐飲食品'}}{{/ifeq}}>餐飲食品</option>
-            <option value='其他' {{#ifeq category '其他'}}{{/ifeq}}>其他</option>
-          </select>
-        </div>
-      </div>
 
-      <div class='row g-3 align-items-center mb-3'>
-        <div class='col-auto'>
-          <label for='amount' class='col-form-label'>金額</label>
+        <div class='row g-3 mb-3'>
+          <div class='col-auto'>
+            <label for='category' class='col-form-label'>類別*</label>
+          </div>
+          <div class='col-9'>
+            <select name='category' id='category' class='form-select' aria-label='Default select example'>
+              <option selected>select</option>
+              <option value='家居物業' {{#ifeq category '家居物業' }}{{/ifeq}}>家居物業</option>
+              <option value='交通出行' {{#ifeq category '交通出行' }}{{/ifeq}}>交通出行</option>
+              <option value='休閒娛樂' {{#ifeq category '休閒娛樂' }}{{/ifeq}}>休閒娛樂</option>
+              <option value='餐飲食品' {{#ifeq category '餐飲食品' }}{{/ifeq}}>餐飲食品</option>
+              <option value='其他' {{#ifeq category '其他' }}{{/ifeq}}>其他</option>
+            </select>
+          </div>
         </div>
-        <div class='col-auto'>
-          <input
-            name='amount'
-            type='text'
-            id='amount'
-            value='{{amount}}'
-            class='form-control'
-            aria-describedby=''
-            required
-          />
+
+        <div class='row g-3 mb-3'>
+          <div class='col-auto'>
+            <label for='amount' class='col-form-label'>金額*</label>
+          </div>
+          <div class='col-9'>
+            <input name='amount' type='text' id='amount' value='{{amount}}' class='form-control' aria-describedby=''
+              required />
+          </div>
         </div>
-      </div>
 
-      <button type='submit' class='btn btn-outline-secondary'>新增支出</button>
+        <button type='submit' class='btn btn-outline-secondary'>新增支出</button>
 
-    </form>
+      </form>
+    </div>
+
 
   </div>
 

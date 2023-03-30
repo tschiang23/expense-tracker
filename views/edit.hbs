@@ -1,83 +1,61 @@
 <div class='container'>
-  <div class='container d-flex flex-column align-items-center mt-5'>
-    <h2>修改支出紀錄</h2>
-    {{> message}}
-    <form action='/records/{{foundRecord._id}}?_method=PUT' method='post'>
-      <div class='row g-3 align-items-center mb-3'>
-        <div class='col-auto'>
-          <label for='name' class='col-form-label'>名稱</label>
-        </div>
-        <div class='col-auto'>
-          <input
-            name='name'
-            type='text'
-            id='name'
-            value='{{foundRecord.name}}'
-            class='form-control'
-            aria-describedby=''
-            required
-          />
-        </div>
-      </div>
+  <div class='row mt-5'>
+    <div class="col-auto mx-auto text-center">
+      <h3 class="mb-3">修改支出紀錄</h3>
+      {{> message}}
 
-      <div class='row g-3 align-items-center mb-3'>
-        <div class='col-auto'>
-          <label for='date' class='col-form-label'>日期</label>
+      <form action='/records/{{foundRecord._id}}?_method=PUT' method='post'>
+        <div class='row g-3 align-items-center mb-3'>
+          <div class='col-auto'>
+            <label for='name' class='col-form-label'>名稱</label>
+          </div>
+          <div class='col-9'>
+            <input name='name' type='text' id='name' value='{{foundRecord.name}}' class='form-control'
+              aria-describedby='' required />
+          </div>
         </div>
-        <div class='col-auto'>
-          <input
-            name='date'
-            type='date'
-            id='date'
-            value='{{foundRecord.date}}'
-            class='form-control'
-            aria-describedby=''
-            required
-          />
-        </div>
-      </div>
 
-      <div class='row g-3 align-items-center mb-3'>
-        <div class='col-auto'>
-          <label for='category' class='col-form-label'>類別</label>
+        <div class='row g-3 align-items-center mb-3'>
+          <div class='col-auto'>
+            <label for='date' class='col-form-label'>日期</label>
+          </div>
+          <div class='col-9'>
+            <input name='date' type='date' id='date' value='{{foundRecord.date}}' class='form-control'
+              aria-describedby='' required />
+          </div>
         </div>
-        <div class='col-auto'>
-          <select
-            name='category'
-            id='category'
-            class='form-select'
-            aria-label='Default select example'
-          >
-            <option selected >select</option>
-            <option value='家居物業'{{#ifeq foundRecord.category '家居物業'}}{{/ifeq}}>家居物業</option>
-            <option value='交通出行' {{#ifeq foundRecord.category '交通出行'}}{{/ifeq}}>交通出行</option>
-            <option value='休閒娛樂' {{#ifeq foundRecord.category '休閒娛樂'}}{{/ifeq}}>休閒娛樂</option>
-            <option value='餐飲食品' {{#ifeq foundRecord.category '餐飲食品'}}{{/ifeq}}>餐飲食品</option>
-            <option value='其他' {{#ifeq foundRecord.category '其他'}}{{/ifeq}}>其他</option>
-          </select>
-        </div>
-      </div>
 
-      <div class='row g-3 align-items-center mb-3'>
-        <div class='col-auto'>
-          <label for='amount' class='col-form-label'>金額</label>
+        <div class='row g-3 align-items-center mb-3'>
+          <div class='col-auto'>
+            <label for='category' class='col-form-label'>類別</label>
+          </div>
+          <div class='col-9'>
+            <select name='category' id='category' class='form-select' aria-label='Default select example'>
+              <option selected>select</option>
+              <option value='家居物業' {{#ifeq foundRecord.category '家居物業' }}{{/ifeq}}>家居物業</option>
+              <option value='交通出行' {{#ifeq foundRecord.category '交通出行' }}{{/ifeq}}>交通出行</option>
+              <option value='休閒娛樂' {{#ifeq foundRecord.category '休閒娛樂' }}{{/ifeq}}>休閒娛樂</option>
+              <option value='餐飲食品' {{#ifeq foundRecord.category '餐飲食品' }}{{/ifeq}}>餐飲食品</option>
+              <option value='其他' {{#ifeq foundRecord.category '其他' }}{{/ifeq}}>其他</option>
+            </select>
+          </div>
         </div>
-        <div class='col-auto'>
-          <input
-            name='amount'
-            type='text'
-            id='amount'
-            value='{{foundRecord.amount}}'
-            class='form-control'
-            aria-describedby=''
-            required
-          />
+
+        <div class='row g-3 align-items-center mb-3'>
+          <div class='col-auto'>
+            <label for='amount' class='col-form-label'>金額</label>
+          </div>
+          <div class='col-9'>
+            <input name='amount' type='text' id='amount' value='{{foundRecord.amount}}' class='form-control'
+              aria-describedby='' required />
+          </div>
         </div>
-      </div>
 
-      <button type='submit' class='btn btn-outline-secondary'>送出</button>
+        <button type='submit' class='btn btn-outline-secondary'>送出</button>
 
-    </form>
+      </form>
+    </div>
+
 
   </div>
 
