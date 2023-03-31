@@ -11,10 +11,6 @@ const recordSchmea = Schema({
   },
   amount: {
     type: Number,
-    min: 0,
-  },
-  category: {
-    type: String,
   },
   userId: {
     type: Schema.Types.ObjectID,

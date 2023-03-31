@@ -10,6 +10,10 @@ const userSchmea = new mongooge.Schema({
   password: {
     type: String,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 })
 
 module.exports = mongooge.model('User', userSchmea)
