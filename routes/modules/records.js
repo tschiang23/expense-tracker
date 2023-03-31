@@ -51,8 +51,14 @@ router.get('/:id/edit', async (req, res) => {
     const userId = req.user._id
     const _id = req.params.id
     let foundRecord = await Record.findOne({ _id, userId }).lean()
+    const categories = await Category.find({}).lean()
+
+    categories.forEach((category) => {
+      category.selectedCategoryId = foundRecord.categoryId
+    })
+
     foundRecord.date = foundRecord.date.toISOString().slice(0, 10)
-    res.render('edit', { foundRecord })
+    res.render('edit', { foundRecord, categories })
   } catch (err) {
     console.log(err)
   }
@@ -63,23 +69,19 @@ router.put('/:id', async (req, res) => {
   try {
     const userId = req.user._id
     const _id = req.params.id
-    let { name, date, category, amount } = req.body
+    let { name, date, categoryId, amount } = req.body
     name = name.trim()
-    amount = amount.trim()
+    amount = Number(amount.trim())
 
-    if (!name.length || !amount.length) {
+    if (!name.length || !amount) {
       req.flash('warning_msg', '欄位不能為空白')
       return res.redirect(`/records/${_id}/edit`)
     }
-    amount = Number(amount)
 
-    const foundCategory = await Category.findOne({ name: category })
-    const categoryId = foundCategory._id
     let foundRecord = await Record.findOne({ _id, userId })
     foundRecord.set({
       name,
       date,
-      category,
       amount,
       categoryId,
     })
