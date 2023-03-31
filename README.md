@@ -54,4 +54,9 @@ npm run seed
 npm run dev
 ```
 
-當終端機顯示"Server is running on http://localhost:3000"，代表啟動成功，可以在瀏覽器輸入 http://localhost:3000 瀏覽內容。
+7. 當 terminal 出現以下字樣，表示伺服器與資料庫已啟動並成功連結
+
+```
+mongoDB connected
+Server is running on http://localhost:3000
+```
