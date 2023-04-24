@@ -13,7 +13,7 @@ const session = require('express-session')
 const usePassport = require('./config/passport')
 const flash = require('connect-flash')
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
 
 db.once('open', () => {
   console.log('mongodb connected')
