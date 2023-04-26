@@ -31,7 +31,7 @@ git clone https://github.com/tschiang23/expense-tracker.git
 2. 進入存放此專案的資料夾
 
 ```
-cd
+cd expense-tracker
 ```
 
 3. 安裝專案相關套件
@@ -40,9 +40,11 @@ cd
 npm install
 ```
 
-4. 設定你的 MongoDB 連接
+4. 設定.env檔，參考 .env.example
 
-5. 載入種子資料
+5. 設定 MongoDB 連接
+
+6. 載入種子資料
 
 ```
 npm run seed

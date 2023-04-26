@@ -16,9 +16,7 @@ module.exports = (app) => {
         try {
           const foundUser = await User.findOne({ email })
           if (!foundUser) {
-            return done(null, false, {
-              message: '帳號密碼不正確',
-            })
+            return done(null, false, req.flash('warning_msg', '帳號密碼不正確'))
           }
 
           const checkPassword = await bcrypt.compare(
@@ -26,9 +24,7 @@ module.exports = (app) => {
             foundUser.password
           )
           if (!checkPassword) {
-            return done(null, false, {
-              message: '帳號密碼不正確',
-            })
+            return done(null, false, req.flash('warning_msg', '帳號密碼不正確'))
           }
 
           return done(null, foundUser)
