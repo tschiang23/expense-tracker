@@ -1,31 +1,18 @@
 <div class='container d-flex justify-content-center'>
   <div class='card mt-5' style='width: 23rem;'>
     <div class='card-body'>
-      <h1>登入</h1>
+      <h1 class="text-center">登入</h1>
       {{> message}}
       <form action='/users/login' method='post'>
 
         <div class='mb-3'>
           <label for='email' class='form-label'>Email</label>
-          <input
-            name='email'
-            type='email'
-            class='form-control'
-            id='email'
-            aria-describedby='emailHelp'
-            required
-          />
+          <input name='email' type='email' class='form-control' id='email' aria-describedby='emailHelp' required />
 
         </div>
         <div class='mb-3'>
           <label for='password' class='form-label'>密碼</label>
-          <input
-            name='password'
-            type='password'
-            class='form-control'
-            id='password'
-            required
-          />
+          <input name='password' type='password' class='form-control' id='password' required />
         </div>
         <div class='d-grid gap-2 mb-2'>
           <button type='submit' class='btn btn-dark'>登入</button>
