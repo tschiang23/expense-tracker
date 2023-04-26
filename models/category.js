@@ -6,6 +6,7 @@ const categorySchmea = new mongooge.Schema({
   },
   icon: {
     type: String,
+    required: true,
   },
 })
 

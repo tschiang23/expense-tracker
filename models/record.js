@@ -8,9 +8,11 @@ const recordSchmea = Schema({
   date: {
     type: Date,
     default: Date.now,
+    required: true,
   },
   amount: {
     type: Number,
+    required: true,
   },
   userId: {
     type: Schema.Types.ObjectID,
