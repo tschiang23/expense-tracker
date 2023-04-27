@@ -7,33 +7,34 @@ const Record = require('../record')
 const User = require('../user')
 const Category = require('../category')
 const bcrypt = require('bcryptjs')
-const records = require('./data')
+const { seedUser, records } = require('./data')
 
-const SEED_USER = [
-  {
-    name: 'user1',
-    email: 'user1@example.com',
-    password: '12345678',
-  },
-]
+
 
 db.once('open', async () => {
   await Promise.all(
-    SEED_USER.map(async (user) => {
+    seedUser.map(async (user) => {
       const hash = await bcrypt.hash(user.password, 10)
       user.password = hash
       const newUser = await User.create({ ...user })
 
-      const userRecords = []
-      for (const record of records) {
+
+
+      const userRecords = user.collection.map((element) => {
+        records[element].userId = newUser._id
+        return records[element]
+      })
+
+
+      const newRecords = []
+      for (const record of userRecords) {
         const category = await Category.findOne({
           name: record.category,
         }).lean()
-        record.userId = newUser._id
         record.categoryId = category._id
-        userRecords.push(record)
+        newRecords.push(record)
       }
-      await Record.create(userRecords)
+      await Record.create(newRecords)
     })
   )
   console.log('Create user and records done')
