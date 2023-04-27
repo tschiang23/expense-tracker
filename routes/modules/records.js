@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const Record = require('../../models/record')
 const Category = require('../../models/category')
+const { validationResult } = require('express-validator');
+const { checkRecord } = require('../../middleware/validator')
 
 router.get('/new', async (req, res) => {
   const categories = await Category.find({}).lean()
@@ -8,35 +10,26 @@ router.get('/new', async (req, res) => {
 })
 
 // 新增一筆支出
-router.post('/', async (req, res) => {
+router.post('/', checkRecord, async (req, res) => {
   try {
     const userId = req.user._id
     const categories = await Category.find({}).lean()
-    let { name, date, categoryId, amount } = req.body
-    name = name.trim()
-    amount = Number(amount.trim())
+    let { categoryId } = req.body
 
-    if (!name.length || !amount) {
-      categories.forEach((category) => {
-        category.selectedCategoryId = categoryId
-      })
+    categories.forEach((category) => {
+      category.selectedCategoryId = categoryId
+    })
 
-      req.flash('warning_msg', '欄位不能為空白')
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
       return res.render('new', {
-        name,
-        date,
+        errors: result.array(),
         categories,
-        amount,
+        ...req.body
       })
     }
-
-    await Record.create({
-      name,
-      date,
-      amount,
-      userId,
-      categoryId,
-    })
+    let recordData = Object.assign({ userId }, req.body)
+    await Record.create(recordData)
 
     req.flash('success_msg', '成功新增一筆支出')
     res.redirect('/')
@@ -65,26 +58,26 @@ router.get('/:id/edit', async (req, res) => {
 })
 
 // 編輯一筆資料
-router.put('/:id', async (req, res) => {
+router.put('/:id', checkRecord, async (req, res) => {
   try {
     const userId = req.user._id
     const _id = req.params.id
-    let { name, date, categoryId, amount } = req.body
-    name = name.trim()
-    amount = Number(amount.trim())
+    let { categoryId } = req.body
 
-    if (!name.length || !amount) {
-      req.flash('warning_msg', '欄位不能為空白')
-      return res.redirect(`/records/${_id}/edit`)
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      const categories = await Category.find({}).lean()
+
+      categories.forEach((category) => {
+        category.selectedCategoryId = categoryId
+      })
+      // 合併_id 與req.body 
+      let recordData = Object.assign({ _id }, req.body)
+      return res.render('edit', { errors: result.array(), foundRecord: recordData, categories })
     }
 
     let foundRecord = await Record.findOne({ _id, userId })
-    foundRecord.set({
-      name,
-      date,
-      amount,
-      categoryId,
-    })
+    foundRecord = Object.assign(foundRecord, req.body)
 
     await foundRecord.save()
 
