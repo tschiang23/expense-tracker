@@ -34,9 +34,8 @@
           <div class='col-9'>
             <select name='categoryId' id='category' class='form-select' aria-label='Default select example'>
               <option selected>select</option>
-              {{!-- each array 沒有 cid 這個object 所以會是undefined --}}
               {{#each categories}}
-              <option value='{{this._id}}'{{#ifeq this.selectedCategoryId this._id }}{{/ifeq}}>{{this.name}}</option>
+              <option value="{{this._id}}" {{ifeq this._id ../categoryId}}>{{this.name}}</option>
               {{/each}}
             </select>
           </div>

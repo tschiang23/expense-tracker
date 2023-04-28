@@ -1,9 +1,10 @@
 module.exports = {
-  ifeq: function (selectedCategoryId, value) {
-    if (!selectedCategoryId) return
+  ifeq: function (a, b) {
 
-    if (String(selectedCategoryId) === String(value)) {
+    if (String(a) === String(b)) {
       return 'selected'
+    } else {
+      return ""
     }
   },
 }

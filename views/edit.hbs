@@ -33,7 +33,10 @@
             <select name='categoryId' id='category' class='form-select' aria-label='Default select example'>
               <option selected>select</option>
               {{#each categories}}
-              <option value='{{this._id}}'{{#ifeq this.selectedCategoryId this._id }}{{/ifeq}}>{{this.name}}</option>
+              {{!-- ../ 代表上上層(在each外面) --}}
+              <option value="{{this._id}}" {{#if ../foundRecord.categoryId._id}} {{ifeq this._id
+                ../foundRecord.categoryId._id}} {{else}} {{ifeq this._id ../foundRecord.categoryId}} {{/if}}>
+                {{this.name}}</option>
               {{/each}}
             </select>
           </div>

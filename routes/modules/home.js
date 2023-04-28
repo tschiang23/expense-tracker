@@ -9,11 +9,12 @@ router.get('/', async (req, res) => {
       .populate('categoryId')
       .lean()
 
+    // 將所有`amount`欄位加總起來，並存放在`total`欄位
     const totalAmount = await Record.aggregate([
       {
         $group: {
-          _id: null, // 用 欄位做分組
-          total: { $sum: "$amount" } // 使用 $sum 把price相加
+          _id: null,
+          total: { $sum: "$amount" }
         }
       }
     ])
