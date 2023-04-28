@@ -6,25 +6,19 @@ router.get('/', async (req, res) => {
   try {
     const userId = req.user._id
     const foundRecords = await Record.find({ userId })
-      .sort({ _id: 'desc' })
+      .populate('categoryId')
       .lean()
 
-    const categories = await Category.find({}).lean()
+    const totalAmount = await Record.aggregate([
+      {
+        $group: {
+          _id: null, // 用 欄位做分組
+          total: { $sum: "$amount" } // 使用 $sum 把price相加
+        }
+      }
+    ])
 
-    let totalAmount = 0
-
-    const records = []
-    for (const record of foundRecords) {
-      totalAmount += record.amount
-      const foundCategory = categories.find(
-        (category) => String(category._id) === String(record.categoryId)
-      )
-      record.icon = foundCategory.icon
-      record.date = record.date.toISOString().slice(0, 10)
-      records.push(record)
-    }
-
-    res.render('index', { records, totalAmount, categories })
+    res.render('index', { records: foundRecords, totalAmount: totalAmount[0].total })
   } catch (err) {
     console.log(err)
   }

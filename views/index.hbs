@@ -12,7 +12,7 @@
               onchange="this.form.submit()">
               <option value='' selected>類別</option>
               {{#each categories}}
-              <option value='{{this._id}}'{{#ifeq this.selectedCategoryId this._id }}{{/ifeq}}>{{this.name}}</option>
+              <option value='{{this._id}}' {{#ifeq this.selectedCategoryId this._id }}{{/ifeq}}>{{this.name}}</option>
               {{/each}}
             </select>
           </form>
@@ -35,7 +35,7 @@
         {{#each records}}
         <li class="list-group-item list-group-item-dark mb-3 rounded d-flex align-items-center ">
           <div class="me-3" style="width:50px">
-            <h2><i class='{{this.icon}}'></i></h2>
+            <h2><i class='{{this.categoryId.icon}}'></i></h2>
           </div>
 
           <div class="d-flex flex-column me-5">
@@ -50,8 +50,8 @@
             <div class="col-5 d-flex justify-content-between align-items-center">
               <div><a class='btn btn-secondary' href='/records/{{this._id}}/edit'>編輯</a></div>
               <div>
-                <form style="display:inline" action="/records/{{this._id}}?_method=DELETE" method="post"><button class="btn btn-danger"
-                    type="submit">刪除</button></form>
+                <form style="display:inline" action="/records/{{this._id}}?_method=DELETE" method="post"><button
+                    class="btn btn-danger" type="submit">刪除</button></form>
               </div>
             </div>
 
