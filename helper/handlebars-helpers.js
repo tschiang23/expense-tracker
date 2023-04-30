@@ -1,10 +1,8 @@
 module.exports = {
   ifeq: function (a, b) {
 
-    if (String(a) === String(b)) {
+    if (a === b) {
       return 'selected'
-    } else {
-      return ""
     }
   },
 }

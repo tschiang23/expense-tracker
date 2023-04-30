@@ -20,7 +20,7 @@ app.engine(
   engine({
     defaultLayout: 'main',
     extname: 'hbs',
-    helpers: require('./config/handlebars-helpers'),
+    helpers: require('./helper/handlebars-helpers'),
   })
 )
 app.set('view engine', 'hbs')

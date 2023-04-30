@@ -31,12 +31,11 @@
           </div>
           <div class='col-9'>
             <select name='categoryId' id='category' class='form-select' aria-label='Default select example'>
-              <option selected>select</option>
+              <option value="" selected>select</option>
               {{#each categories}}
-              {{!-- ../ 代表上上層(在each外面) --}}
-              <option value="{{this._id}}" {{#if ../foundRecord.categoryId._id}} {{ifeq this._id
-                ../foundRecord.categoryId._id}} {{else}} {{ifeq this._id ../foundRecord.categoryId}} {{/if}}>
-                {{this.name}}</option>
+              <option value='{{this._id}}' {{#if ../categoryName}} {{#ifeq this.name ../categoryName }}{{/ifeq}}
+                {{/if}}>{{this.name}}
+              </option>
               {{/each}}
             </select>
           </div>

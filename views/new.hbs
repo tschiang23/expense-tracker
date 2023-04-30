@@ -33,9 +33,11 @@
           </div>
           <div class='col-9'>
             <select name='categoryId' id='category' class='form-select' aria-label='Default select example'>
-              <option selected>select</option>
+              <option value="" selected>select</option>
               {{#each categories}}
-              <option value="{{this._id}}" {{ifeq this._id ../categoryId}}>{{this.name}}</option>
+              <option value='{{this._id}}' {{#if ../categoryName}} {{#ifeq this.name ../categoryName }}{{/ifeq}}
+                {{/if}}>{{this.name}}
+              </option>
               {{/each}}
             </select>
           </div>

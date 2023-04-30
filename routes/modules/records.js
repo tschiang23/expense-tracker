@@ -13,19 +13,24 @@ router.get('/new', async (req, res) => {
 router.post('/', checkRecord, async (req, res) => {
   try {
     const userId = req.user._id
+    const { categoryId } = req.body
     const categories = await Category.find({}).lean()
 
     const result = validationResult(req);
     if (!result.isEmpty()) {
+      const category = categories.find(category => {
+        return category._id.toString() === categoryId
+      })
+
       return res.render('new', {
         errors: result.array(),
         categories,
-        ...req.body
+        ...req.body,
+        categoryName: category.name
       })
     }
     const recordData = Object.assign({ userId }, req.body)
     await Record.create(recordData)
-
     req.flash('success_msg', '成功新增一筆支出')
     res.redirect('/')
   } catch (err) {
@@ -39,9 +44,9 @@ router.get('/:id/edit', async (req, res) => {
     const userId = req.user._id
     const _id = req.params.id
     const foundRecord = await Record.findOne({ _id, userId }).populate('categoryId').lean()
-
+    const categoryName = foundRecord.categoryId.name
     const categories = await Category.find({}).lean()
-    res.render('edit', { foundRecord, categories })
+    res.render('edit', { foundRecord, categories, categoryName })
   } catch (err) {
     console.log(err)
   }
@@ -52,15 +57,17 @@ router.put('/:id', checkRecord, async (req, res) => {
   try {
     const userId = req.user._id
     const _id = req.params.id
-
+    const { categoryId } = req.body
 
     const result = validationResult(req);
     if (!result.isEmpty()) {
       const categories = await Category.find({}).lean()
-
+      const category = categories.find(category => {
+        return category._id.toString() === categoryId
+      })
       // 合併_id 與req.body 
       const recordData = Object.assign({ _id }, req.body)
-      return res.render('edit', { errors: result.array(), foundRecord: recordData, categories,})
+      return res.render('edit', { errors: result.array(), foundRecord: recordData, categories, categoryName: category.name })
     }
 
     let foundRecord = await Record.findOne({ _id, userId })

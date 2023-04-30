@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const Record = require('../../models/record')
 const Category = require('../../models/category')
+// const { ObjectId } = require('mongodb')
+const ObjectID = require("bson-objectid");
 
 router.get('/', async (req, res) => {
   try {
@@ -9,25 +11,61 @@ router.get('/', async (req, res) => {
     if (!categoryId) return res.redirect('/')
 
     const categories = await Category.find({}).lean()
-    categories.forEach((category) => {
-      category.selectedCategoryId = categoryId
+    const category = categories.find(category => {
+      return category._id.toString() === categoryId
     })
 
-    const foundRecords = await Record.find({ userId, categoryId }).lean()
+    // populate
+    const foundRecords = await Record.find({ userId, categoryId })
+      .populate('categoryId')
+      .lean()
 
+    // aggregate
+    /**
+    const foundRecords = await Record.aggregate([
+
+      {
+        $lookup: {
+          from: "categories",  //要關聯的collection
+          localField: "categoryId", //Record 關聯的字串
+          foreignField: "_id", //categories關聯的字串
+          as: "category"
+        }
+      },
+      {
+        $match: {
+          $and: [
+            { userId },
+            { categoryId: ObjectID(categoryId) }
+          ]
+        }
+      },
+    ])
+*/
     let totalAmount = 0
-    const records = []
-    for (const record of foundRecords) {
-      totalAmount += record.amount
-      const foundCategory = categories.find(
-        (category) => String(category._id) === String(record.categoryId)
-      )
-      record.icon = foundCategory.icon
-      record.date = record.date.toISOString().slice(0, 10)
-      records.push(record)
+    if (foundRecords.length) {
+      const result = await Record.aggregate([
+        {
+          $match: {
+            $and: [
+              { userId },
+              { categoryId: ObjectID(categoryId) }
+              // { categoryId: foundRecords[0].categoryId._id }
+            ]
+          }
+        },
+        {
+          $group: {
+            _id: null,
+            total: { $sum: "$amount" }
+          }
+        },
+      ])
+
+      totalAmount = result[0].total
     }
 
-    res.render('index', { records, totalAmount, categories })
+    res.render('index', { records: foundRecords, totalAmount, categories, categoryName: category.name })
   } catch (err) {
     console.log(err)
   }
