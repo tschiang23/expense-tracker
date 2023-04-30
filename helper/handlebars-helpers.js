@@ -1,3 +1,5 @@
+const dayjs = require('dayjs')
+
 module.exports = {
   ifeq: function (a, b) {
 
@@ -5,4 +7,7 @@ module.exports = {
       return 'selected'
     }
   },
+  dateFormat: function (date) {
+    return dayjs(date).format('YYYY-MM-DD')
+  }
 }

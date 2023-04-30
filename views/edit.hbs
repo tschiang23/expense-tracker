@@ -20,8 +20,8 @@
             <label for='date' class='col-form-label'>日期</label>
           </div>
           <div class='col-9'>
-            <input name='date' type='date' id='date' value='{{foundRecord.date}}' class='form-control'
-              aria-describedby='' required />
+            <input name='date' type='date' id='date' value='{{#dateFormat foundRecord.date}}{{/dateFormat}}'
+              class='form-control' aria-describedby='' required />
           </div>
         </div>
 
